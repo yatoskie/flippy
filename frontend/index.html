@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flippy — Fast, Focused Flashcard Studying</title>
+<meta name="description" content="Flippy is a flashcard study platform built for fast, engaging, effective learning. Make decks, flip through them, hit your weekly goals.">
+<link rel="canonical" href="./index.html">
+<meta property="og:title" content="Flippy">
+<meta property="og:description" content="Study smarter with interactive flashcards.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="mark"></span>Flippy</a>
+  <div class="nav-right">
+    <a href="auth.html" class="btn btn-ghost btn-sm">Log in</a>
+    <a href="auth.html?mode=signup" class="btn btn-primary btn-sm">Sign up</a>
+  </div>
+</header>
+
+<main class="auth-wrap" style="min-height:auto;">
+  <section class="container hero">
+    <div>
+      <h1>Study like you're flipping through real cards, not a spreadsheet.</h1>
+      <p class="lede">Flippy turns your notes into fast, tactile flashcards — swipe through a deck, track what's sticking, and hit a weekly goal instead of an endless backlog.</p>
+      <div class="cta-row">
+        <a href="auth.html?mode=signup" class="btn btn-primary">Get started free</a>
+        <a href="auth.html" class="btn btn-ghost">I have an account</a>
+      </div>
+      <p class="hint">No install, no server — works straight from this page, even offline.</p>
+    </div>
+    <div class="hero-stage">
+      <div class="deck-shadow-1"></div>
+      <div class="deck-shadow-2"></div>
+      <div id="hero-flipcard"></div>
+    </div>
+  </section>
+
+  <section class="container features">
+    <div class="feature">
+      <span class="num">Quick</span>
+      <h3>Built decks in seconds</h3>
+      <p>Type a front and back, hit save. No templates to fight with.</p>
+    </div>
+    <div class="feature">
+      <span class="num">Tactile</span>
+      <h3>Flip and swipe</h3>
+      <p>A real 3D flip, swipe right if you knew it, left if you didn't — on touch or keyboard.</p>
+    </div>
+    <div class="feature">
+      <span class="num">Grounded</span>
+      <h3>Goals you can actually see</h3>
+      <p>A weekly goal list that checks itself off, next to a calendar of the days you showed up.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="landing-footer">
+  <span>&copy; 2026 Flippy</span>
+  <div>
+    <a href="#" data-open-terms>Terms</a>
+    <a href="#" data-open-privacy>Privacy</a>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="flippy-generic-modal">
+  <div class="modal">
+    <h3 data-modal-title>Notice</h3>
+    <p data-modal-body></p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" data-modal-close>Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/flipcard.js"></script>
+<script>
+  createFlipcard({
+    front: 'What is Flippy?',
+    back: 'A fast, tactile flashcard study app.',
+    container: document.getElementById('hero-flipcard')
+  });
+
+  document.querySelectorAll('[data-open-terms],[data-open-privacy]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const overlay = document.getElementById('flippy-generic-modal');
+      const isTerms = a.hasAttribute('data-open-terms');
+      overlay.querySelector('[data-modal-title]').textContent = isTerms ? 'Terms of use' : 'Privacy';
+      overlay.querySelector('[data-modal-body]').textContent = isTerms
+        ? 'Placeholder terms of use — replace with your real policy before launch.'
+        : 'Placeholder privacy notice — Flippy stores your data locally in your browser unless a backend is connected.';
+      overlay.classList.add('open');
+    });
+  });
+  document.querySelectorAll('[data-modal-close]').forEach(b => b.addEventListener('click', () => {
+    document.getElementById('flippy-generic-modal').classList.remove('open');
+  }));
+</script>
+</body>
+</html>

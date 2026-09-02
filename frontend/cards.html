@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Cards — Flippy</title>
+<meta name="description" content="Create, edit, and organize your Flippy flashcard decks.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="mark"></span>Flippy</a>
+  <div class="nav-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search your decks and cards" data-nav-search>
+  </div>
+  <div class="nav-right">
+    <button class="icon-btn" data-game-btn title="Game mode">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="4"/><line x1="7" y1="12" x2="9" y2="12"/><line x1="8" y1="11" x2="8" y2="13"/><circle cx="16" cy="10.5" r=".8" fill="currentColor"/><circle cx="18" cy="12.5" r=".8" fill="currentColor"/></svg>
+    </button>
+    <div style="position:relative;">
+      <button class="avatar" data-profile-trigger data-avatar-slot>?</button>
+      <div class="popover" data-profile-popover>
+        <button data-open-avatar-upload>Edit profile picture</button>
+        <input type="file" accept="image/*" data-avatar-upload hidden>
+        <button data-game-btn>Game — coming soon</button>
+        <button data-logout>Log out</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="app-shell" style="grid-template-columns:220px 1fr;">
+  <aside class="sidebar">
+    <nav>
+      <a href="dashboard.html">Home</a>
+      <a href="cards.html" class="active">My Cards</a>
+      <a href="settings.html">Settings</a>
+      <button data-logout>Logout</button>
+    </nav>
+  </aside>
+
+  <main class="main-col">
+
+    <!-- DECK LIST VIEW -->
+    <div id="deck-list-view">
+      <div class="deck-toolbar">
+        <div class="page-head" style="margin-bottom:0;">
+          <h1 style="font-size:1.6rem;">My Cards</h1>
+          <p>Your decks, saved automatically on this device.</p>
+        </div>
+        <button class="btn btn-primary" id="new-deck-btn">+ New deck</button>
+      </div>
+      <div class="deck-grid" id="deck-grid"></div>
+    </div>
+
+    <!-- DECK DETAIL VIEW -->
+    <div id="deck-detail-view" style="display:none;">
+      <button class="btn-text" id="back-to-decks">← All decks</button>
+      <div class="deck-toolbar">
+        <div class="page-head" style="margin-bottom:0;">
+          <h1 id="detail-title" style="font-size:1.5rem;"></h1>
+          <p id="detail-desc"></p>
+        </div>
+        <button class="btn btn-primary" id="new-card-btn">+ Add card</button>
+      </div>
+      <div class="card-list" id="card-list"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Deck create/edit modal -->
+<div class="modal-overlay" id="deck-modal">
+  <div class="modal">
+    <h3 id="deck-modal-title">New deck</h3>
+    <div class="field">
+      <label for="deck-title-input">Title</label>
+      <input id="deck-title-input" placeholder="e.g. Spanish Verbs">
+    </div>
+    <div class="field">
+      <label for="deck-desc-input">Description (optional)</label>
+      <textarea class="field-textarea" id="deck-desc-input" placeholder="What's this deck for?"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close-deck>Cancel</button>
+      <button class="btn btn-primary" id="save-deck-btn">Save deck</button>
+    </div>
+  </div>
+</div>
+
+<!-- Card create/edit modal -->
+<div class="modal-overlay" id="card-modal">
+  <div class="modal">
+    <h3 id="card-modal-title">New card</h3>
+    <div class="field">
+      <label for="card-front-input">Front</label>
+      <textarea class="field-textarea" id="card-front-input" placeholder="Question or prompt"></textarea>
+    </div>
+    <div class="field">
+      <label for="card-back-input">Back</label>
+      <textarea class="field-textarea" id="card-back-input" placeholder="Answer"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close-card>Cancel</button>
+      <button class="btn btn-primary" id="save-card-btn">Save card</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="flippy-generic-modal">
+  <div class="modal">
+    <h3 data-modal-title>Notice</h3>
+    <p data-modal-body></p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" data-modal-close>Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/api-client.js"></script>
+<script src="assets/js/cards.js"></script>
+</body>
+</html>

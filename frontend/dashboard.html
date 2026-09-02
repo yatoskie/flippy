@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Flippy</title>
+<meta name="description" content="Study your Flippy decks, track weekly goals, and see your streak.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="mark"></span>Flippy</a>
+  <div class="nav-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search your decks and cards" data-nav-search>
+  </div>
+  <div class="nav-right">
+    <button class="icon-btn" data-game-btn title="Game mode">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="4"/><line x1="7" y1="12" x2="9" y2="12"/><line x1="8" y1="11" x2="8" y2="13"/><circle cx="16" cy="10.5" r=".8" fill="currentColor"/><circle cx="18" cy="12.5" r=".8" fill="currentColor"/></svg>
+    </button>
+    <div style="position:relative;">
+      <button class="avatar" data-profile-trigger data-avatar-slot>?</button>
+      <div class="popover" data-profile-popover>
+        <button data-open-avatar-upload>Edit profile picture</button>
+        <input type="file" accept="image/*" data-avatar-upload hidden>
+        <button data-game-btn>Game — coming soon</button>
+        <button data-logout>Log out</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <nav>
+      <a href="dashboard.html" class="active">Home</a>
+      <a href="cards.html">My Cards</a>
+      <a href="settings.html">Settings</a>
+      <button data-logout>Logout</button>
+    </nav>
+  </aside>
+
+  <main class="main-col">
+    <div class="page-head">
+      <h1 id="greeting" style="font-size:1.6rem;">Welcome back</h1>
+      <p>Pick up where you left off, or start a new deck below.</p>
+    </div>
+
+    <div id="deck-picker" style="margin-bottom:18px;"></div>
+
+    <div class="study-panel" id="study-panel">
+      <div class="study-progress" id="study-progress"></div>
+      <div id="flipcard-slot"></div>
+      <div class="study-controls" id="study-controls">
+        <button class="btn btn-wrong" id="btn-wrong">✕ Didn't know it</button>
+        <button class="btn btn-right" id="btn-right">✓ Knew it</button>
+      </div>
+      <p class="swipe-hint">Tap the card to flip · swipe on mobile · arrow keys on desktop</p>
+    </div>
+  </main>
+
+  <aside class="right-col">
+    <div class="calendar">
+      <div class="calendar-head"><h3>This month</h3></div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </div>
+    <div>
+      <div class="calendar-head"><h3>Weekly goals</h3><button class="btn-text btn-sm" id="add-goal-btn">+ Add</button></div>
+      <ul class="goals-list" id="goals-list"></ul>
+    </div>
+  </aside>
+</div>
+
+<div class="modal-overlay" id="goal-modal">
+  <div class="modal">
+    <h3>New weekly goal</h3>
+    <div class="field">
+      <label for="goal-label">What are you aiming for?</label>
+      <input id="goal-label" placeholder="e.g. Review Spanish deck 5 times">
+    </div>
+    <div class="field">
+      <label for="goal-target">Target count</label>
+      <input id="goal-target" type="number" min="1" value="5">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" data-close-goal>Cancel</button>
+      <button class="btn btn-primary" id="save-goal-btn">Save goal</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="flippy-generic-modal">
+  <div class="modal">
+    <h3 data-modal-title>Notice</h3>
+    <p data-modal-body></p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" data-modal-close>Got it</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/api-client.js"></script>
+<script src="assets/js/flipcard.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

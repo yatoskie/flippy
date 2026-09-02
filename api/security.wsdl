@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  FLIPPY — Security service contract (reference documentation)
+
+  This describes the SOAP operations implemented by /api/auth.py. It's
+  provided as a readable contract for anyone integrating against the
+  service — the endpoint itself is a lightweight hand-rolled SOAP
+  implementation (stdlib ElementTree) rather than a WSDL-driven framework,
+  so this file is documentation of the wire format rather than a machine
+  target that generates the server. Keep it in sync with api/auth.py if
+  you add or change actions.
+-->
+<definitions name="FlippySecurity"
+             targetNamespace="urn:flippy-security"
+             xmlns:tns="urn:flippy-security"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+  <message name="SignupRequest">
+    <part name="username" type="xsd:string"/>
+    <part name="email" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="SignupResponse">
+    <part name="success" type="xsd:boolean"/>
+    <part name="userId" type="xsd:int"/>
+    <part name="token" type="xsd:string"/>
+  </message>
+
+  <message name="LoginRequest">
+    <part name="usernameOrEmail" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="LoginResponse">
+    <part name="success" type="xsd:boolean"/>
+    <part name="token" type="xsd:string"/>
+    <part name="userId" type="xsd:int"/>
+  </message>
+
+  <message name="RequestPasswordResetRequest">
+    <part name="email" type="xsd:string"/>
+  </message>
+  <message name="RequestPasswordResetResponse">
+    <part name="success" type="xsd:boolean"/>
+  </message>
+
+  <message name="VerifyOtpRequest">
+    <part name="email" type="xsd:string"/>
+    <part name="code" type="xsd:string"/>
+  </message>
+  <message name="VerifyOtpResponse">
+    <part name="success" type="xsd:boolean"/>
+    <part name="resetToken" type="xsd:string"/>
+  </message>
+
+  <message name="SetNewPasswordRequest">
+    <part name="resetToken" type="xsd:string"/>
+    <part name="newPassword" type="xsd:string"/>
+  </message>
+  <message name="SetNewPasswordResponse">
+    <part name="success" type="xsd:boolean"/>
+  </message>
+
+  <message name="ChangePasswordRequest">
+    <!-- Requires Authorization: Bearer <token> header, not a body field -->
+    <part name="currentPassword" type="xsd:string"/>
+    <part name="newPassword" type="xsd:string"/>
+  </message>
+  <message name="ChangePasswordResponse">
+    <part name="success" type="xsd:boolean"/>
+  </message>
+
+  <portType name="FlippySecurityPortType">
+    <operation name="Signup">
+      <input message="tns:SignupRequest"/>
+      <output message="tns:SignupResponse"/>
+    </operation>
+    <operation name="Login">
+      <input message="tns:LoginRequest"/>
+      <output message="tns:LoginResponse"/>
+    </operation>
+    <operation name="RequestPasswordReset">
+      <input message="tns:RequestPasswordResetRequest"/>
+      <output message="tns:RequestPasswordResetResponse"/>
+    </operation>
+    <operation name="VerifyOtp">
+      <input message="tns:VerifyOtpRequest"/>
+      <output message="tns:VerifyOtpResponse"/>
+    </operation>
+    <operation name="SetNewPassword">
+      <input message="tns:SetNewPasswordRequest"/>
+      <output message="tns:SetNewPasswordResponse"/>
+    </operation>
+    <operation name="ChangePassword">
+      <input message="tns:ChangePasswordRequest"/>
+      <output message="tns:ChangePasswordResponse"/>
+    </operation>
+  </portType>
+
+  <service name="FlippySecurityService">
+    <documentation>Endpoint: POST /api/auth, Content-Type: text/xml</documentation>
+  </service>
+</definitions>

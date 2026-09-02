@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in or sign up — Flippy</title>
+<meta name="description" content="Log in to Flippy or create a free account to start building flashcard decks.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="mark"></span>Flippy</a>
+</header>
+
+<div class="auth-wrap">
+  <div class="auth-shell">
+    <div class="auth-card">
+
+      <!-- Login / Signup toggle -->
+      <div class="auth-tabs" id="mode-tabs">
+        <button type="button" data-tab="login" class="active">Log in</button>
+        <button type="button" data-tab="signup">Sign up</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form class="form-view active" id="login-view">
+        <div class="field">
+          <label for="login-id">Username or email</label>
+          <input id="login-id" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="login-pw">Password</label>
+          <input id="login-pw" type="password" required autocomplete="current-password">
+          <div class="msg error" id="login-error" style="display:none;"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Log in</button>
+        <p class="auth-alt-action"><a href="#" id="forgot-link">Forgot your password?</a></p>
+      </form>
+
+      <!-- SIGNUP -->
+      <form class="form-view" id="signup-view">
+        <div class="field">
+          <label for="su-username">Username</label>
+          <input id="su-username" required minlength="3" maxlength="24" autocomplete="username">
+          <div class="msg">Real names aren't required — pick anything.</div>
+        </div>
+        <div class="field">
+          <label for="su-email">Email</label>
+          <input id="su-email" type="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="su-pw">Password</label>
+          <input id="su-pw" type="password" required minlength="8" autocomplete="new-password">
+          <div class="strength"><span id="strength-bar"></span></div>
+          <div class="msg" id="strength-msg">Use 8+ characters with a mix of letters, numbers, symbols.</div>
+        </div>
+        <div class="field">
+          <label for="su-pw2">Confirm password</label>
+          <input id="su-pw2" type="password" required autocomplete="new-password">
+          <div class="msg error" id="signup-error" style="display:none;"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+      </form>
+
+      <!-- FORGOT PASSWORD: step 1 email -->
+      <form class="form-view" id="forgot-email-view">
+        <div class="field">
+          <label for="fg-email">Account email</label>
+          <input id="fg-email" type="email" required>
+          <div class="msg">We'll send a one-time code to this address.</div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Send code</button>
+        <p class="auth-alt-action"><a href="#" data-back-to="login">Back to log in</a></p>
+      </form>
+
+      <!-- FORGOT PASSWORD: step 2 OTP -->
+      <form class="form-view" id="forgot-otp-view">
+        <div class="field">
+          <label for="fg-otp">Enter the 6-digit code</label>
+          <input id="fg-otp" required maxlength="6">
+          <div class="msg" id="otp-dev-hint"></div>
+          <div class="msg error" id="otp-error" style="display:none;"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Verify code</button>
+      </form>
+
+      <!-- FORGOT PASSWORD: step 3 new password -->
+      <form class="form-view" id="forgot-new-view">
+        <div class="field">
+          <label for="fg-new-pw">New password</label>
+          <input id="fg-new-pw" type="password" required minlength="8">
+        </div>
+        <div class="field">
+          <label for="fg-new-pw2">Confirm new password</label>
+          <input id="fg-new-pw2" type="password" required>
+          <div class="msg error" id="fg-error" style="display:none;"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Save new password</button>
+      </form>
+
+    </div>
+  </div>
+  <footer class="landing-footer">
+    <span>&copy; 2026 Flippy</span>
+    <div><a href="index.html">Terms</a><a href="index.html">Privacy</a></div>
+  </footer>
+</div>
+
+<script src="assets/js/app.js"></script>
+<script src="assets/js/api-client.js"></script>
+<script src="assets/js/auth-page.js"></script>
+</body>
+</html>
